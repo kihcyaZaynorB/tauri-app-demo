@@ -38,6 +38,7 @@ module.exports = {
     "no-console": "off",
     "no-shadow": "off",
     "no-unused-vars": "off",
+    "linebreak-style": ["off", "error", "windows"],
     "import/no-extraneous-dependencies": "off",
     "import/extensions": [
       "error",
