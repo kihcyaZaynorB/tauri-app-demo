@@ -62,10 +62,12 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 768,
         "resizable": true,
-        "title": "Tauri App",
-        "width": 800
+        "title": "Memo",
+        "width": 1280,
+        "center": true,
+        "decorations": false
       }
     ]
   }

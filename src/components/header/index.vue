@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import {
-  Layout, Menu, InputSearch,
+  Layout, Menu, Input,
 } from 'ant-design-vue';
+import { SearchOutlined } from '@ant-design/icons-vue';
 import { invoke } from '@tauri-apps/api';
 import logo from '@/assets/logo.svg';
 import WindowState, { getWindowState } from '@/types/window-state.d';
@@ -41,7 +42,7 @@ export default {
     ALayoutHeader: Header,
     AMenu: Menu,
     AMenuItem: Item,
-    AInputSearch: InputSearch,
+    AInput: Input,
   },
 };
 
@@ -58,7 +59,7 @@ export default {
     </div>
     <a-menu
       v-model:selectedKeys="current"
-      theme="dark"
+      theme="light"
       mode="horizontal"
     >
       <a-menu-item :key="1">
@@ -72,7 +73,11 @@ export default {
       </a-menu-item>
     </a-menu>
     <div class="search-wrapper">
-      <a-input-search class="search" />
+      <a-input class="search">
+        <template #prefix>
+          <search-outlined type="search" />
+        </template>
+      </a-input>
     </div>
     <div class="option-wrapper">
       <div
@@ -125,18 +130,52 @@ export default {
   </a-layout-header>
 </template>
 
-<style>
+<style lang="less" scoped>
+.ant-menu {
+  border-bottom: 0px;
+
+  :deep(.ant-menu-item:hover:before),
+  :deep(.ant-menu-item-selected::before),
+  :deep(.ant-menu-item-active:before) {
+    border-top: 2px solid @primary-color;
+  }
+}
+
+.ant-menu-horizontal {
+
+  :deep(.ant-menu-item::before),
+  :deep(.ant-menu-sub-menu::before) {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    left: 20px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s,
+      padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    content: '';
+  }
+
+  :deep(.ant-menu-item::after),
+  :deep(.ant-menu-sub-menu::after) {
+    content: none;
+  }
+}
+
 .header {
   display: flex;
   flex-flow: row nowrap;
+  padding: 0 25px;
+  background-color: @white;
+  box-shadow: 0 2px 8px #f0f1f2;
 }
 
 .logo-wrapper {
   cursor: pointer;
+  margin-right: 20px;
 }
 
 .logo {
-  height: 30px;
+  height: 40px;
 }
 
 .nav {
@@ -166,11 +205,11 @@ export default {
 }
 
 .option {
+  display: flex;
+  flex-flow: row nowrap;
   width: 30px;
   cursor: pointer;
-}
-
-.option svg {
-  fill: white;
+  justify-content: center;
+  margin-left: 5px;
 }
 </style>
